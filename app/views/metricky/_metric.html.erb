@@ -1,0 +1,24 @@
+<div class="card card-body">
+  <%= metric_form_for metric do |f| %>
+    <div class="header-elements-inline">
+      <div>
+        <h5><%= metric.title %></h5>
+      </div>
+      <% if metric.class.ranges.any? %>
+        <div>
+          <%= f.select :range, metric.class.ranges.invert, { selected: metric.range }, { class: "form-control-sm", name: "#{metric.form_name}[range]", onchange: "this.form.submit()" }  %>
+        </div>
+      <% end %>
+    </div>
+    <div class="media">
+      <div class="media-body">
+        <% if metric.results.is_a?(Hash) %>
+          <%= metricky_chart(metric) %>
+        <% else %>
+          <h3 class="font-weight-semibold mb-0"><%= metric.results %></h3>
+        <% end %>
+        <span class="text-uppercase font-size-sm text-muted"><%= metric.subtitle %></span>
+      </div>
+    </div>
+  <% end %>
+</div>
