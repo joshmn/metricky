@@ -1,8 +1,8 @@
 module Metricky
   class Base
     VALID_TYPES = [:sum, :max, :min, :average, :count].freeze
-    attr_reader :params
-    def initialize(params)
+    attr_reader :params, :query
+    def initialize(params = {})
       @params = params
       @query = nil
     end
