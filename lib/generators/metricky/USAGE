@@ -1,0 +1,13 @@
+Description:
+============
+    Stubs out a new metric. Passes the metirc name, either CamelCased or
+    under_scored, and an optional named arguments defining values.
+
+    This generates a metric class in app/metrics.
+
+Example:
+========
+    rails generate metricky:metric TotalUsers --scope User --period day --type count
+
+    creates a Metricky metric class:
+        Metric:     app/metrics/total_users_metric.rb

@@ -10,7 +10,6 @@ module Metricky
 
       def create_metric_file
         template "metric.rb", File.join("app/metrics", class_path, "#{file_name}_metric.rb")
-
         in_root do
           if behavior == :invoke && !File.exist?(application_metric_file_name)
             template "application_metric.rb", application_metric_file_name

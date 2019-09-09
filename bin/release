@@ -4,7 +4,7 @@
 require_relative '../lib/metricky/version'
 
 version = Metricky::VERSION
-system("gem build metricky")
+system("gem build metricky.gemspec")
 system("gem push metricky-#{version}.gem")
 system("rm metricky-#{version}.gem")
 system("git tag -a v#{version} -m 'version #{version}'")
