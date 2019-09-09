@@ -1,0 +1,4 @@
+<% module_namespacing do -%>
+class ApplicationMetric < Metricky::Base
+end
+<% end %>

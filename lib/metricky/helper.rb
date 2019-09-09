@@ -13,7 +13,7 @@ module Metricky
           metric = metric_name.safe_constantize
         else
           klass_name = "#{metric_name.to_s}Metric".camelize
-          metric = "Metrics::#{klass_name}".safe_constantize
+          metric = "#{klass_name}".safe_constantize
         end
         raise NameError, "#{metric_name} does not exist" unless metric
       else

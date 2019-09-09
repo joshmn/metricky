@@ -1,0 +1,15 @@
+<% module_namespacing do -%>
+class <%= class_name %>Metric < ApplicationMetric
+  def scope
+    <%= options[:scope] %>
+  end
+
+  def type
+    <%= options[:type] %>
+  end
+
+  def period
+    <%= options[:period] %>
+  end
+end
+<% end -%>

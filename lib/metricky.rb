@@ -2,7 +2,6 @@ require "groupdate"
 require "chartkick"
 require "metricky/base"
 require "metricky/helper"
-
 require "metricky/engine"
 
 module Metricky
