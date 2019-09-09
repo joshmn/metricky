@@ -5,11 +5,13 @@ class <%= class_name %>Metric < ApplicationMetric
   end
 
   def type
-    <%= options[:type] %>
+    <%= options[:type][0] == ':' ? options[:type] : ":#{options[:type]}" %>
   end
 
+  <% if options[:period] %>
   def period
-    <%= options[:period] %>
+    <%= options[:period][0] == ':' ? options[:period] : ":#{options[:period]}" %>
   end
+  <% end %>
 end
 <% end -%>
