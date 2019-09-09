@@ -9,27 +9,28 @@ Make this in Ruby:
 
 ## Generate it 
 
-`rails g metricky:metric User --scope User --type :count --period :day`
+`rails g metricky:metric TotalUsersMetric --scope User --type :count --period :day`
+
+## Display it 
+
 In your view where you want to display the metric: 
 
 ```erbruby
-render_metric :users
+render_metric :total_users
 ```
 
-In `app/metrics/users_metric.rb`
+## Customize it 
+
+In `app/metrics/total_users_metric.rb`
 
 ```ruby 
-class UsersMetric < Metricky::Base 
+class TotalUsersMetric < ApplicationMetric 
   def scope
     User
   end
 
   def type
     :count
-  end
-
-  def columns
-    :id
   end
 
   def period
@@ -75,7 +76,7 @@ def columns
 end
 ```
 
-### Grouping by date
+### Grouping by period (day, month, year, quarter, etc.)
 
 In your metric, define what period:
 
@@ -105,7 +106,7 @@ def type
 end
 ```
 
-This can be any one of `:min, :max, :sum, :count`
+This can be any one of `:min, :max, :sum, :count, :average`
 
 ### Ranges
 
