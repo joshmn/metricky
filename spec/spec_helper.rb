@@ -63,10 +63,10 @@ class UsersMoneyByAge < Metricky::Base
   def type
     :sum
   end
-  def trend_column
+  def period_column
     'dob'
   end
-  def trend
+  def period
     :year
   end
 end
@@ -75,7 +75,7 @@ class UsersInvalidTrend < Metricky::Base
   def scope
     User
   end
-  def trend
+  def period
     :dogs
   end
 end

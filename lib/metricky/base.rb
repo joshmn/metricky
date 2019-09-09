@@ -123,6 +123,11 @@ module Metricky
     # [:second, :minute, :hour, :day, :week, :month, :quarter, :year, :day_of_week,
     # :hour_of_day, :minute_of_hour, :day_of_month, :month_of_year]
     def trend
+      ActiveSupport::Deprecation.warn('Use period instead')
+      period
+    end
+
+    def period
       nil
     end
 
@@ -132,8 +137,13 @@ module Metricky
     end
 
     # What column to specify for the trend calculation. Normally `created_at`
-    def trend_column
+    def period_column
       'created_at'
+    end
+
+    def trend_column
+      ActiveSupport::Deprecation.warn('Use period_column instead')
+      period_column
     end
 
     def range
@@ -142,8 +152,8 @@ module Metricky
 
     private
 
-    def trend?
-      trend.present?
+    def period?
+      period.present?
     end
 
     def assets
@@ -152,16 +162,16 @@ module Metricky
       else
         @query = scope
       end
-      if trend? && valid_trend?
+      if period? && valid_period?
         @query = @query.group_by_period(trend, trend_column)
       end
       @query = @query.send(type, *columns)
       @query
     end
 
-    def valid_trend?
-      return true if Groupdate::PERIODS.include?(trend.to_sym)
-      raise NameError, "trend must be one of #{Groupdate::PERIODS}. It is #{trend}."
+    def valid_period?
+      return true if Groupdate::PERIODS.include?(period.to_sym)
+      raise NameError, "period must be one of #{Groupdate::PERIODS}. It is #{period}."
     end
 
     def check_type

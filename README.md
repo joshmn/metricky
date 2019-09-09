@@ -7,6 +7,9 @@ Make this in Ruby:
 
 <img src="https://i.imgur.com/PQhFyAE.png" alt="Metricky example">
 
+## Generate it 
+
+`rails g metricky:metric User --scope User --type :count --period :day`
 In your view where you want to display the metric: 
 
 ```erbruby
@@ -29,7 +32,7 @@ class UsersMetric < Metricky::Base
     :id
   end
 
-  def trend
+  def period
     :day 
   end
 end
@@ -72,12 +75,12 @@ def columns
 end
 ```
 
-### Grouping
+### Grouping by date
 
-In your metric, define what trend:
+In your metric, define what period:
 
 ```ruby
-def trend 
+def period 
   :day 
 end
 ```
@@ -87,7 +90,7 @@ This can be any one of `Groupdate::PERIODS`
 Define what column should be used:
 
 ```ruby
-def trend_column
+def period_column
   :created_at 
 end
 ```

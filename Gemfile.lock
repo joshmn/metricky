@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    metricky (0.3.1)
+    metricky (0.3.2)
       chartkick (> 3.0)
       groupdate (> 4.0)
       rails (> 5.1)

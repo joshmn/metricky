@@ -49,7 +49,7 @@ describe Metricky::Base do
       expect(@metric.results).to eq(0.3e1)
     end
   end
-  context  'trend calculations' do
+  context  'period calculations' do
     before(:all) do
       @metric = UsersMoneyByAge.new(HashWithIndifferentAccess.new({"users_money_by_ages_metric": { "range": '30' }}))
     end
@@ -65,8 +65,8 @@ describe Metricky::Base do
       expect(results["1991-01-01"]).to eq(3)
     end
   end
-  context 'trends' do
-    it 'is invalid if trend is not valid' do
+  context 'periods' do
+    it 'is invalid if period is not valid' do
       metric = UsersInvalidTrend.new
       expect { metric.results }.to raise_error(NameError)
     end
