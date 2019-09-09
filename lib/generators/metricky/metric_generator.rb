@@ -18,6 +18,7 @@ module Metricky
       end
 
       private
+
       def file_name # :doc:
         @_file_name ||= super.sub(/_metric\z/i, "")
       end
