@@ -28,7 +28,7 @@ module Metricky
     def noun
       {
           count: "total number of",
-          average: "average #{columns}",
+          average: "average #{columns} of",
           sum: "total",
           min: "minimum",
           max: "maximum"
@@ -82,7 +82,7 @@ module Metricky
 
     # If you have a static metric that doesn't need to be queried (e.g. average users age of all users), disable the form
     def form?
-      true
+      ranges.any?
     end
 
     private

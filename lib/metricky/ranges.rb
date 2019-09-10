@@ -1,7 +1,6 @@
 module Metricky
   class Base
     class_attribute :ranges, default: {}
-    class_attribute :excluded_ranges, default: []
     class_attribute :default_range_key, default: 'all'
 
     def self.default_range(val = nil)
@@ -43,7 +42,13 @@ module Metricky
     end
 
     def self.remove_range(key)
-      self.excluded_ranges << key.to_s
+      self.ranges.delete(key.to_s)
+    end
+
+    # Remove all ranges
+    def self.reset_ranges!
+      self.ranges = {}
+      self.default_range_key = nil
     end
 
     register_range 'all', label: 'All' do
@@ -98,7 +103,7 @@ module Metricky
 
     # Used in the HTML form for the metric as the select options
     def range_collection
-      ranges.except(*excluded_ranges).sort_by { |_, range| range.priority }.collect { |key, range_thing| [range_thing.label, key] }
+      ranges.sort_by { |_, range| range.priority }.collect { |key, range_thing| [range_thing.label, key] }
     end
   end
 end
