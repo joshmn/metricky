@@ -7,7 +7,7 @@ module Metricky
     end
 
     def metrick_path(metric, options = {})
-      Metricky::Engine.routes.url_helpers.metric_path(name: metric.name.underscore, query: request.query_parameters, options: options)
+      metricky.metric_path(name: metric.name.underscore, query: request.query_parameters, options: options)
     end
 
     def render_metric(metric_name, options = {})
