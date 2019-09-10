@@ -80,6 +80,11 @@ module Metricky
       'id'
     end
 
+    # If you have a static metric that doesn't need to be queried (e.g. average users age of all users), disable the form
+    def form?
+      true
+    end
+
     private
 
     def assets
@@ -96,11 +101,6 @@ module Metricky
         raise TypeError, "#{type} is not a valid type."
       end
       @query
-    end
-
-    # If you have a static metric that doesn't need to be queried (e.g. average users age of all users), disable the form
-    def form?
-      true
     end
 
     def valid_type?
