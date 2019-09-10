@@ -98,6 +98,11 @@ module Metricky
       @query
     end
 
+    # If you have a static metric that doesn't need to be queried (e.g. average users age of all users), disable the form
+    def form?
+      true
+    end
+
     def valid_type?
       VALID_TYPES.include?(type.to_sym)
     end

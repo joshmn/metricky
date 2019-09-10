@@ -36,5 +36,11 @@ class <%= class_name %>Metric < ApplicationMetric
   # ==> Remove ranges
   # Remove ranges from the select
   # exclude_ranges '24h', '30d'
+
+  # ==> Disable the form
+  # Display the form if you have a metric that doesn't need to be queried (e.g. average user age of all users)
+  # def form?
+  #   false
+  # end
 end
 <% end -%>

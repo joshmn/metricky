@@ -4,7 +4,7 @@
       <div>
         <h5><%= metric.title %></h5>
       </div>
-      <% if metric.class.ranges.any? %>
+      <% if metric.form? %>
         <div>
           <%= f.select :range, metric.range_collection, { selected: metric.range }, { class: "form-control-sm", name: "#{metric.form_name}[range]", onchange: "this.form.submit()" }  %>
         </div>
