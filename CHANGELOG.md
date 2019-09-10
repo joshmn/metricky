@@ -1,3 +1,6 @@
+## 0.7.5
+* Add `format_value(value)` to format the resulting value
+
 ## 0.7.4
 * Change the default `form?` to reflect if there are any ranges
 * `remove_range` now deletes the range from the `ranges` hash instead of adding the value to an array of keys which were excluded from ranges

@@ -100,7 +100,16 @@ module Metricky
       else
         raise TypeError, "#{type} is not a valid type."
       end
+      if @query.is_a?(Hash)
+        @query.transform_values! { |value| format_value(value) }
+      else
+        @query = format_value(@query)
+      end
       @query
+    end
+
+    def format_value(value)
+      value
     end
 
     def valid_type?
