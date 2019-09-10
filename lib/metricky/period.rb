@@ -23,8 +23,7 @@ module Metricky
     deprecate_and_alias_method :period?, :trend?
 
     def valid_period?
-      return true if Groupdate::PERIODS.include?(period.to_sym)
-      raise NameError, "period must be one of #{Groupdate::PERIODS}. It is #{period}."
+      Groupdate::PERIODS.include?(period.to_sym)
     end
     deprecate_and_alias_method :valid_period?, :valid_trend?
   end
