@@ -176,6 +176,28 @@ class TotalUsersMetric < ApplicationMetric
 end
 ```
 
+#### Customizing the label
+
+Use `collection_label`
+
+```ruby 
+class TotalUsersMetric < ApplicationMetric
+  def collection_label(range_thing)
+    "Born #{range_thing.value.call}"
+  end
+end 
+```
+
+Need helpers? `h`
+
+```
+class TotalUsersMetric < ApplicationMetric
+  def collection_label(range_thing)
+    "Born #{h.time_ago_in_words(range_thing.value.call)}"
+  end
+end 
+```
+
 ### Partial
 
 In your metric, define the partial path:

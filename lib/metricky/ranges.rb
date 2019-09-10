@@ -97,13 +97,17 @@ module Metricky
       'created_at'
     end
 
+    def collection_label(range_thing)
+      "#{range_thing.label}"
+    end
+
     def range
       params.dig(form_name, :range) || default_range_key
     end
 
     # Used in the HTML form for the metric as the select options
     def range_collection
-      ranges.sort_by { |_, range| range.priority }.collect { |key, range_thing| [range_thing.label, key] }
+      ranges.sort_by { |_, range| range.priority }.collect { |key, range_thing| [collection_label(range_thing), key] }
     end
   end
 end

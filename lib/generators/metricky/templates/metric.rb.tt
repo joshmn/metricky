@@ -47,5 +47,10 @@ class <%= class_name %>Metric < ApplicationMetric
   # def form?
   #   false
   # end
+
+  # ==> Change the collection label on ranges
+  # def collection_label(range_thing)
+  #   "Born #{range_thing.label}"
+  # end
 end
 <% end -%>

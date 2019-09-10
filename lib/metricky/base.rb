@@ -139,6 +139,9 @@ module Metricky
       @query
     end
 
+    def h
+      @h ||= ActionController::Base.helpers
+    end
 
     def format_value(value)
       value

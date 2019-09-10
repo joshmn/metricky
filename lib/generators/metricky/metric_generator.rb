@@ -4,9 +4,10 @@ module Metricky
       source_root File.expand_path("templates", __dir__)
       check_class_collision suffix: "Metric"
 
-      class_option :scope, type: :string, aliases: %i(--scope), default: '', desc: "What class or scoped class this metric pulls from"
-      class_option :type, type: :string, aliases: %i(--type), default: ':count', desc: "What type of metric (:count, :max, :min, :sum, :average)"
-      class_option :period, type: :string, default: 'nil', aliases: %i{--period}, desc: "What class or scoped class this metric pulls from"
+      class_option :scope, type: :string, aliases: %i(--scope), default: '', desc: "What class or scoped class this metric pulls from. Required."
+      class_option :type, type: :string, aliases: %i(--type), default: ':count', desc: "What type of metric — one of :count, :max, :min, :sum, :average. Default is :count"
+      class_option :period, type: :string, default: 'nil', aliases: %i{--period}, desc: "What class or scoped class this metric pulls from (optional)"
+      class_option :group, type: :string, default: 'nil', aliases: %i{--group}, desc: "Specify what attribute to group by (optional)"
 
       def create_metric_file
         template "metric.rb", File.join("app/metrics", class_path, "#{file_name}_metric.rb")
