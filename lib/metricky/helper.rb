@@ -6,8 +6,8 @@ module Metricky
       end
     end
 
-    def metricky_metric_path(metric, options = {})
-      metricky.metric_path(name: metric.name.underscore, query: request.query_parameters, options: options)
+    def metrick_path(metric, options = {})
+      Metricky::Engine.routes.url_helpers.metric_path(name: metric.name.underscore, query: request.query_parameters, options: options)
     end
 
     def render_metric(metric_name, options = {})
@@ -29,7 +29,7 @@ module Metricky
 
     def metricky_chart(metric, options = {})
       if metric.json?
-        send(metric.chart, metricky_metric_path(metric, options))
+        send(metric.chart, metrick_path(metric, options))
       else
         send(metric.chart, metric.results, options)
       end
