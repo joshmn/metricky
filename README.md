@@ -86,6 +86,16 @@ def columns
 end
 ```
 
+### Grouping the value
+
+To `User.all.group(:color).count`
+
+```ruby
+def group
+  :color 
+end
+```
+
 ### Grouping by period (day, month, year, quarter, etc.)
 
 In your metric, define what period:
@@ -147,6 +157,14 @@ end
 class TotalUsersMetric < ApplicationMetric
   remove_ranges '24h', '7d' # an array 
   remove_range '3d' # individual 
+end
+```
+
+#### Removing all ranges
+
+```ruby
+class TotalUsersMetric < ApplicationMetric
+  reset_ranges!
 end
 ```
 
