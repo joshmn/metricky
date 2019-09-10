@@ -110,41 +110,41 @@ This can be any one of `:min, :max, :sum, :count, :average`
 
 ### Ranges
 
-In your metric, define what ranges as a class method:
-
-```ruby
-def self.ranges
-  {
-      'all' => 'All',
-      '30' => '30 Days',
-      '60' => '60 Days',
-      '365' => '365 Days',
-  }
-end
-```
-
-And then their corresponding values (instance-level):
-
-```ruby 
-def range_value
-  case range
-  when 'all'
-    nil
-  when '30'
-    30.days.ago
-  when '60'
-    60.days.ago
-  when '365'
-    365.days.ago
-  end
-end
-```
-
-This is used with a `where` query against the `range_column`.
+Ranges are what values are available on the form (used to query the metric, if applicable) via the `range_column`
 
 ```ruby 
 def range_column
   :created_at
+end
+```
+
+Defaults are `all`, `today`, `24 hours`, `3 days`, `7 days`, `10 days`, `14 days`, `30 days`, `3 months`, `6 months`, `12 months`
+
+#### Creating a new range
+In your metric, define what ranges as a class method:
+
+```ruby
+class TotalUsersMetric < ApplicationMetric
+  register_range '15h', label: "15 hours" do 
+    15.hours.ago   
+  end
+end
+```
+
+#### Removing a range
+
+```ruby
+class TotalUsersMetric < ApplicationMetric
+  remove_ranges '24h', '7d' # an array 
+  remove_range '3d' # individual 
+end
+```
+
+#### Setting the default range 
+
+```ruby
+class TotalUsersMetric < ApplicationMetric
+  default_range '24h'
 end
 ```
 

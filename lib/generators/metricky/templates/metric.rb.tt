@@ -1,5 +1,8 @@
 <% module_namespacing do -%>
 class <%= class_name %>Metric < ApplicationMetric
+  # ==> Change the default range (default is all)
+  # default_range '24h'
+
   def scope
     <%= options[:scope] %>
   end
@@ -7,11 +10,31 @@ class <%= class_name %>Metric < ApplicationMetric
   def type
     <%= options[:type][0] == ':' ? options[:type] : ":#{options[:type]}" %>
   end
-
   <% if options[:period] %>
   def period
     <%= options[:period][0] == ':' ? options[:period] : ":#{options[:period]}" %>
   end
+  <% else %>
+  # ==> Change the period grouping
+  # Must be one of Groupdate::PERIODS
+  # def period
+  #   :week
+  # end
   <% end %>
+
+  # ==> Change the chart
+  # def chart
+  #   :column_chart
+  # end
+
+  # ==> Register a new range
+  # Add a range to the select
+  # register_range '15w', label: "15 weeks" do
+  #   15.weeks.ago
+  # end
+
+  # ==> Remove ranges
+  # Remove ranges from the select
+  # exclude_ranges '24h', '30d'
 end
 <% end -%>

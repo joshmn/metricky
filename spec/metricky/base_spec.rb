@@ -12,10 +12,10 @@ describe Metricky::Base do
       expect(@metric.range_column.to_s).to eq('created_at')
     end
     it 'trend_column is :created_at' do
-      expect(@metric.trend_column.to_s).to eq('created_at')
+      expect(@metric.period_column.to_s).to eq('created_at')
     end
     it 'trend is nil' do
-      expect(@metric.trend).to be_nil
+      expect(@metric.period).to be_nil
     end
     it 'columns is id' do
       expect(@metric.columns).to eq('id')
@@ -51,11 +51,11 @@ describe Metricky::Base do
   end
   context  'period calculations' do
     before(:all) do
-      @metric = UsersMoneyByAge.new(HashWithIndifferentAccess.new({"users_money_by_ages_metric": { "range": '30' }}))
+      @metric = UsersMoneyByAge.new(HashWithIndifferentAccess.new({"users_money_by_ages_metric": { "range": '30d' }}))
     end
     it 'range is calculated correctly' do
-      expect(@metric.range).to eq('30')
-      expect(@metric.range_value.to_date).to eq(30.days.ago.to_date)
+      expect(@metric.range).to eq('30d')
+      expect(@metric.range_to_value.to_date).to eq(30.days.ago.to_date)
       expect(@metric.results).to be_a(Hash)
     end
     it 'results are a hash' do

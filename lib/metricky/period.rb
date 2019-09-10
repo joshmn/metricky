@@ -1,0 +1,32 @@
+module Metricky
+  class Base
+    # How it's grouped. Leave nil if no grouping
+    #
+    # [:second, :minute, :hour, :day, :week, :month, :quarter, :year, :day_of_week,
+    # :hour_of_day, :minute_of_hour, :day_of_month, :month_of_year]
+    def period
+      nil
+    end
+    deprecate_and_alias_method :period, :trend
+
+    # What column to specify for the period calculation. Normally `created_at`
+    def period_column
+      'created_at'
+    end
+    deprecate_and_alias_method :period_column, :trend_column
+
+    private
+
+    def period?
+      period.present?
+    end
+    deprecate_and_alias_method :period?, :trend?
+
+    def valid_period?
+      return true if Groupdate::PERIODS.include?(period.to_sym)
+      raise NameError, "period must be one of #{Groupdate::PERIODS}. It is #{period}."
+    end
+    deprecate_and_alias_method :valid_period?, :valid_trend?
+
+  end
+end

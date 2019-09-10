@@ -1,3 +1,6 @@
+require 'metricky/period'
+require 'metricky/ranges'
+
 module Metricky
   class Base
     VALID_TYPES = [:sum, :max, :min, :average, :count].freeze
@@ -19,32 +22,13 @@ module Metricky
     end
 
     def noun
-      case type.to_sym
-      when :count
-        "total number of"
-      when :average
-        "average #{columns}"
-      when :sum
-        "total"
-      when :min
-        "minimum"
-      when :max
-        "maximum"
-      end
-    end
-
-    # List of ranges and their values. Used (inverted) on the form.
-    def self.ranges
       {
-          'all' => 'All',
-          'Today' => 'Today',
-          '30' => '30 Days',
-          '60' => '60 Days',
-          '365' => '365 Days',
-          'WTD' => 'WTD',
-          'MTD' => 'MTD',
-          'YTD' => 'YTD',
-      }
+          count: "total number of",
+          average: "average #{columns}",
+          sum: "total",
+          min: "minimum",
+          max: "maximum"
+      }[type.to_sym]
     end
 
     # Actual result of the metric
@@ -74,32 +58,6 @@ module Metricky
       self.class.metric_name.tableize
     end
 
-    # Converts range string to a Ruby object
-    def range_value
-      case range
-      when nil
-        nil
-      when 'all'
-        nil
-      when '30'
-        30.days.ago
-      when '60'
-        60.days.ago
-      when '365'
-        365.days.ago
-      when 'WTD'
-        DateTime.now.beginning_of_week
-      when 'MTD'
-        DateTime.now.beginning_of_month
-      when 'YTD'
-        DateTime.now.beginning_of_year
-      when 'Today'
-        DateTime.now.beginning_of_day
-      else
-        raise TypeError, "unknown range_value for range #{range}. Please define it on range_value"
-      end
-    end
-
     # What ActiveRecord class (or scoped class) is being used for  the metric
     def scope
       raise NotImplementedError, "please add a scope to your metric."
@@ -118,66 +76,26 @@ module Metricky
       'id'
     end
 
-    # How it's grouped. Leave nil if no grouping
-    #
-    # [:second, :minute, :hour, :day, :week, :month, :quarter, :year, :day_of_week,
-    # :hour_of_day, :minute_of_hour, :day_of_month, :month_of_year]
-    def trend
-      ActiveSupport::Deprecation.warn('Use period instead')
-      period
-    end
-
-    def period
-      nil
-    end
-
-    # What column to specify for the range calculation. Normally `created_at`
-    def range_column
-      'created_at'
-    end
-
-    # What column to specify for the trend calculation. Normally `created_at`
-    def period_column
-      'created_at'
-    end
-
-    def trend_column
-      ActiveSupport::Deprecation.warn('Use period_column instead')
-      period_column
-    end
-
-    def range
-      params.dig(form_name, :range)
-    end
-
     private
 
-    def period?
-      period.present?
-    end
-
     def assets
-      if range_value != nil
-        @query = scope.where("#{range_column} > ?", range_value)
-      else
-        @query = scope
+      @query = scope
+      unless range_to_value.nil?
+        @query = scope.where("#{range_column} > ?", range_to_value)
       end
       if period? && valid_period?
-        @query = @query.group_by_period(trend, trend_column)
+        @query = @query.group_by_period(period, period_column)
       end
-      @query = @query.send(type, *columns)
+      if valid_type?
+        @query = @query.send(type, *columns)
+      else
+        raise TypeError, "#{type} is not a valid type."
+      end
       @query
     end
 
-    def valid_period?
-      return true if Groupdate::PERIODS.include?(period.to_sym)
-      raise NameError, "period must be one of #{Groupdate::PERIODS}. It is #{period}."
-    end
-
-    def check_type
-      unless VALID_TYPES.include?(type.to_sym)
-        raise NameError, "#{type} must be one of :sum, :max, :min, :average, :count"
-      end
+    def valid_type?
+      VALID_TYPES.include?(type.to_sym)
     end
   end
 end
