@@ -44,6 +44,10 @@ module Metricky
       assets
     end
 
+    def name
+      self.class.metric_name
+    end
+
     def self.metric_name
       name.demodulize.sub(/Metric$/, "")
     end
@@ -89,6 +93,14 @@ module Metricky
       ranges.any?
     end
 
+    def chart?
+      results.is_a?(Hash) || results.is_a?(Array)
+    end
+
+    def to_json
+      results.chart_json
+    end
+
     def group
       false
     end
@@ -96,6 +108,11 @@ module Metricky
     def group?
       group.present?
     end
+
+    def json?
+      false
+    end
+
     private
 
     def assets
@@ -121,6 +138,7 @@ module Metricky
       end
       @query
     end
+
 
     def format_value(value)
       value

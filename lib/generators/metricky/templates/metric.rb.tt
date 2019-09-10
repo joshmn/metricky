@@ -41,5 +41,11 @@ class <%= class_name %>Metric < ApplicationMetric
   # def form?
   #   false
   # end
+
+  # ==> Render chart async
+  # Renders the chart asynchronously with an ajax request. There are some limitations. Read here.
+  # def form?
+  #   false
+  # end
 end
 <% end -%>

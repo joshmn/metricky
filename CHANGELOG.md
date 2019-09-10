@@ -1,5 +1,11 @@
+## 0.8.0
+* Mountable controller for rendering charts asynchronously
+* That's a hard word
+* Add `json?` to return json and subsequently render the chart via an ajax request
+* Add `chart?` 
+
 ## 0.7.6
-* Add `group` to group
+* Add `group`
 
 ## 0.7.5
 * Add `format_value(value)` to format the resulting value

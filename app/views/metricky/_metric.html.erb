@@ -12,7 +12,7 @@
     </div>
     <div class="media">
       <div class="media-body">
-        <% if metric.results.is_a?(Hash) %>
+        <% if metric.chart? %>
           <%= metricky_chart(metric) %>
         <% else %>
           <h3 class="font-weight-semibold mb-0"><%= metric.results %></h3>

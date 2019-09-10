@@ -6,6 +6,10 @@ module Metricky
       end
     end
 
+    def metricky_metric_path(metric, options = {})
+      metricky.metric_path(name: metric.name.underscore, query: request.query_parameters, options: options)
+    end
+
     def render_metric(metric_name, options = {})
       if metric_name.is_a?(String) || metric_name.is_a?(Symbol)
         metric_name = metric_name.to_s
@@ -23,8 +27,12 @@ module Metricky
       render metric, metric: metric
     end
 
-    def metricky_chart(metric)
-      send(metric.chart, metric.results)
+    def metricky_chart(metric, options = {})
+      if metric.json?
+        send(metric.chart, metricky_metric_path(metric, options))
+      else
+        send(metric.chart, metric.results, options)
+      end
     end
   end
 end
