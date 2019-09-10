@@ -1,11 +1,16 @@
 # Metricky
 Display metrics about your database in your application. Depends on the awesome [Chartkick](https://github.com/ankane/chartkick) and [Groupdate](https://github.com/ankane/groupdate).
 
+## Demo (with code!)
+
+[metricky-demo.herokuapp.com](https://metricky-demo.herokuapp.com)
+
 ## Usage
 
 Make this in Ruby:
 
 <img src="https://i.imgur.com/PQhFyAE.png" alt="Metricky example">
+
 
 ## Generate it 
 
