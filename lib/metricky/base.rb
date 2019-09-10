@@ -20,6 +20,10 @@ module Metricky
       :column_chart
     end
 
+    def chart_options
+      @chart_options ||= {}
+    end
+
     # What partial is rendered.
     def to_partial_path
       '/metricky/metric'
@@ -85,6 +89,13 @@ module Metricky
       ranges.any?
     end
 
+    def group
+      false
+    end
+
+    def group?
+      group.present?
+    end
     private
 
     def assets
@@ -94,6 +105,9 @@ module Metricky
       end
       if period? && valid_period?
         @query = @query.group_by_period(period, period_column)
+      end
+      if group?
+        @query = @query.group(group)
       end
       if valid_type?
         @query = @query.send(type, *columns)

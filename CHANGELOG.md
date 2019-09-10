@@ -1,3 +1,6 @@
+## 0.7.6
+* Add `group` to group
+
 ## 0.7.5
 * Add `format_value(value)` to format the resulting value
 
