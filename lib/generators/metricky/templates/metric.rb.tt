@@ -10,15 +10,14 @@ class <%= class_name %>Metric < ApplicationMetric
   def type
     <%= options[:type][0] == ':' ? options[:type] : ":#{options[:type]}" %>
   end
-  <% if options[:period] %>
+  <% if options[:group] %>
   def period
-    <%= options[:period][0] == ':' ? options[:period] : ":#{options[:period]}" %>
+    <%= options[:group][0] == ':' ? options[:group] : ":#{options[:group]}" %>
   end
   <% else %>
-  # ==> Change the period grouping
-  # Must be one of Groupdate::PERIODS
-  # def period
-  #   :week
+  # ==> Change the grouping
+  # def group
+  #   :color
   # end
   <% end %>
 
