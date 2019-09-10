@@ -71,8 +71,10 @@ Then drop in Chartkick into your `application.js` (or similar):
 Need to pass `current_user`? 
 
 ```erbruby
-render_metric :users, user: current_user 
+render_metric :users, user: current_user, account: current_account
 ```
+
+`user` and `account` will be `attr_reader`-ized.
 
 ### Value to calculate
 
