@@ -66,6 +66,14 @@ Then drop in Chartkick into your `application.js` (or similar):
 
 ~~Blatantly ripped from~~ Super-inspired by Laravel Nova's metric system.
 
+### Sending more data into the metric
+
+Need to pass `current_user`? 
+
+```erbruby
+render_metric :users, user: current_user 
+```
+
 ### Value to calculate
 
 In your metric, define columns:

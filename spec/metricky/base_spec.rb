@@ -3,7 +3,10 @@ require 'spec_helper'
 describe Metricky::Base do
   context 'defaults' do
     before(:all) do
-      @metric = UsersMetric.new({})
+      @metric = UsersMetric.new({}, current_user: 1)
+    end
+    it 'has a current_user' do
+      expect(@metric.current_user).to eq(1)
     end
     it 'type is :count' do
       expect(@metric.type).to eq(:count)
@@ -67,7 +70,7 @@ describe Metricky::Base do
   end
   context 'periods' do
     it 'is invalid if period is not valid' do
-      metric = UsersInvalidTrend.new
+      metric = UsersInvalidTrend.new({})
       expect { metric.results }.to raise_error(NameError)
     end
   end

@@ -6,7 +6,7 @@ module Metricky
       end
     end
 
-    def render_metric(metric_name)
+    def render_metric(metric_name, options = {})
       if metric_name.is_a?(String) || metric_name.is_a?(Symbol)
         metric_name = metric_name.to_s
         if metric_name.end_with?("Metric")
@@ -19,7 +19,7 @@ module Metricky
       else
         metric = metric_name
       end
-      metric = metric.new(params)
+      metric = metric.new(params, options)
       render metric, metric: metric
     end
 

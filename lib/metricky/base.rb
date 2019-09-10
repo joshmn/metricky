@@ -5,8 +5,12 @@ module Metricky
   class Base
     VALID_TYPES = [:sum, :max, :min, :average, :count].freeze
     attr_reader :params, :query
-    def initialize(params = {})
+    def initialize(params, options = {})
       @params = params
+      options.each do |k,v|
+        self.class.attr_reader k
+        self.instance_variable_set("@#{k}", v)
+      end
       @query = nil
     end
 

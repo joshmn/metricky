@@ -27,6 +27,5 @@ module Metricky
       raise NameError, "period must be one of #{Groupdate::PERIODS}. It is #{period}."
     end
     deprecate_and_alias_method :valid_period?, :valid_trend?
-
   end
 end
