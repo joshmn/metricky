@@ -13,7 +13,7 @@ module Metricky
     #   range_priority '24h', 99
     # end
     def self.range_priority(key, priority)
-      self.ranges[key.to_s].priority = priority
+      self.ranges[key.to_sym].priority = priority
     end
 
     # Register a range. Priority is used for the select order.
@@ -33,7 +33,7 @@ module Metricky
     def self.register_range(key, label: nil, priority: nil, &block)
       label ||= key
       priority ||= self.ranges.size
-      self.ranges[key.to_s] = RangeThing.new(label, priority, block)
+      self.ranges[key.to_sym] = RangeThing.new(label, priority, block)
     end
 
     # Removes the listed ranges from the select
@@ -42,7 +42,7 @@ module Metricky
     end
 
     def self.remove_range(key)
-      self.ranges.delete(key.to_s)
+      self.ranges.delete(key.to_sym)
     end
 
     # Remove all ranges
@@ -84,7 +84,7 @@ module Metricky
     # Lookup the passed range and convert it to a value for our ActiveRecord query
     def range_to_value
       return nil if range.nil?
-      if val = self.ranges[range]
+      if val = self.ranges[range.to_sym]
         val.value.call
       else
         raise TypeError, "invalid range #{range}. Please define it."

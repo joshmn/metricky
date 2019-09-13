@@ -23,6 +23,7 @@ module Metricky
     deprecate_and_alias_method :period?, :trend?
 
     def valid_period?
+      return true unless period?
       Groupdate::PERIODS.include?(period.to_sym)
     end
     deprecate_and_alias_method :valid_period?, :valid_trend?

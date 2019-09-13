@@ -122,6 +122,8 @@ module Metricky
       end
       if period? && valid_period?
         @query = @query.group_by_period(period, period_column)
+      elsif period?
+        raise NameError, "period #{period} is not a valid period. Must be one of #{Groupdate::PERIODS}."
       end
       if group?
         @query = @query.group(group)

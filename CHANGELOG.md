@@ -1,3 +1,6 @@
+# 0.9.0
+* Performance improvements.
+
 ## 0.8.0
 * Mountable controller for rendering charts asynchronously
 * That's a hard word

@@ -11,7 +11,6 @@ Make this in Ruby:
 
 <img src="https://i.imgur.com/PQhFyAE.png" alt="Metricky example">
 
-
 ## Generate it 
 
 `rails g metricky:metric TotalUsersMetric --scope User --type :count --period :day`
